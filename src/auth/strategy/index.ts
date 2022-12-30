@@ -1,1 +1,1 @@
-export * from './jwt.startegy';
+export * from './jwt.strategy';
