@@ -36,7 +36,29 @@ export class AuthService {
     }
   }
 
-  signin() {
-    return 'Sign in route';
+  async signin(dto: AuthDto) {
+    //Get user from DB
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+
+    //Throw error if user does not exist
+    if (!user) {
+      throw new ForbiddenException('User not registered');
+    }
+
+    //Compare password
+    const isSamePassword = argon.verify(user.hash, dto.password);
+
+    //Throw error if passwords dont match
+    if (!isSamePassword) {
+      throw new ForbiddenException('Incorrect password');
+    }
+
+    //Return user
+    delete user.hash;
+    return user;
   }
 }
