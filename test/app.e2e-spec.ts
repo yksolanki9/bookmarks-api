@@ -152,5 +152,15 @@ describe('App e2e', () => {
     });
   });
 
-  describe('Bookmark', () => {});
+  describe('Bookmark', () => {
+    describe('Create Bookmark', () => {});
+
+    describe('Get all Bookmarks', () => {});
+
+    describe('Get bookmark by Id', () => {});
+
+    describe('Edit bookmark', () => {});
+
+    describe('Delete bookmark', () => {});
+  });
 });
