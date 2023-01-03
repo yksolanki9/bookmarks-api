@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateBookmarkDto, EditBookmarkDto } from './dto';
 
 @Injectable()
@@ -23,8 +23,9 @@ export class BookmarkService {
 
     if (!bookmark || bookmark.userId !== userId) {
       throw new ForbiddenException('Not Authorized');
+    } else {
+      return bookmark;
     }
-    return bookmark;
   }
 
   async createBookmark(userId: number, dto: CreateBookmarkDto) {

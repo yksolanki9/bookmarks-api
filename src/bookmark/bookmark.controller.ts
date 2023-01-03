@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UseGuards,
@@ -24,7 +25,10 @@ export class BookmarkController {
   }
 
   @Get(':id')
-  getBookmark(@GetUser('id') userId: number, @Param('id') bookmarkId: number) {
+  getBookmark(
+    @GetUser('id') userId: number,
+    @Param('id', ParseIntPipe) bookmarkId: number,
+  ) {
     return this.bookmarkService.getBookmark(userId, bookmarkId);
   }
 
@@ -39,7 +43,7 @@ export class BookmarkController {
   @Patch(':id')
   updateBookmark(
     @GetUser('id') userId: number,
-    @Param('id') bookmarkId: number,
+    @Param('id', ParseIntPipe) bookmarkId: number,
     @Body() dto: EditBookmarkDto,
   ) {
     return this.bookmarkService.updateBookmark(userId, bookmarkId, dto);
@@ -48,7 +52,7 @@ export class BookmarkController {
   @Delete(':id')
   deleteBookmark(
     @GetUser('id') userId: number,
-    @Param('id') bookmarkId: number,
+    @Param('id', ParseIntPipe) bookmarkId: number,
   ) {
     return this.bookmarkService.deleteBookmark(userId, bookmarkId);
   }
